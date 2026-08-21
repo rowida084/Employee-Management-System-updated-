@@ -16,9 +16,9 @@ namespace ConsoleApp4.Services
         public Dictionary<int, Department> departments=new Dictionary<int, Department>();
         private HashSet<string> uniqueSkills=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        public event EventHandler<EmployeeEventArgs> EmployeeOnboarding;
+        public event EventHandler<EmployeeEventArgs> EmployeeOnboarding;//generic EventHndler
         public event EventHandler<EmployeeEventArgs> EmployeePromoted;
-
+        public event EventHandler<EmployeeEventArgs> EmployeeSkillRegistered;
          public void printEmps(List<Employee> employees)
         {
             foreach (Employee emp in employees)
@@ -212,6 +212,7 @@ namespace ConsoleApp4.Services
                 };
             }
             uniqueSkills.Add(emp.uniqueSkill);
+            EmployeeSkillRegistered?.Invoke(this,new EmployeeEventArgs(emp));
             return new Results<Employee>
             {
                 success = true,
