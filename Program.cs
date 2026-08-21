@@ -1,4 +1,4 @@
-﻿using ConsoleApp4.Models;
+using ConsoleApp4.Models;
 using ConsoleApp4.Services;
 using System;
 using System.Collections;
@@ -19,7 +19,7 @@ namespace ConsoleApp4
             enSearchEmpByID = 4, enSearchEmpByName = 5, enPrintEmps = 6, enCalcSalaryAvrage = 7,
             enEmpsReport = 8, enPrintActionHistory = 9, enPrintUniqueSkills = 10,enPromoteToManager=11,
             enPrintAllManagers=12,enAssinEmployeeToManager=13,enPrintManagerTeam=14,
-            enFilterEmployee=15,enSearchByID=16,enExite = 0
+            enFilterEmployee=15,enSearchByID=16,enSortEmployeesBySalary=17,enSortEmployeesByName=18,enExite = 0
         }
 
         private enum enFilterOption {enEmpByManagerID=1,enSalary=2,enEmpsByDepartment=3,enBack=0}
@@ -351,6 +351,20 @@ namespace ConsoleApp4
                         break;
                     }
 
+                case enOption.enSortEmployeesBySalary:
+                    {
+                        company.bubbleSort((a,b)=>b.salary.CompareTo(a.salary));//decreasing order
+                        company.printActiveEmployees();
+                        break;
+                    }
+
+                case enOption.enSortEmployeesByName:
+                    {
+                        company.bubbleSort((a,b)=>a.name.CompareTo(b.name));
+                        company.printActiveEmployees();
+                        break;
+                    }
+
                 case enOption.enExite:
                     {
 
@@ -363,15 +377,15 @@ namespace ConsoleApp4
             }
         }
 
-        static private void _printEmps(List<Employee> employees)
-        {
-            foreach(Employee emp in employees)
-            {
-                Console.WriteLine("Employee Info:");
-                emp.Print();
-                Console.WriteLine("=====================================");
-            }
-        }
+        //static private void _printEmps(List<Employee> employees)
+        //{
+        //    foreach(Employee emp in employees)
+        //    {
+        //        Console.WriteLine("Employee Info:");
+        //        emp.Print();
+        //        Console.WriteLine("=====================================");
+        //    }
+        //}
 
         static private double _readSalary()
         {
@@ -401,7 +415,7 @@ namespace ConsoleApp4
                             }
                             else
                             {
-                                _printEmps(emps);
+                                company.printEmps(emps);
                             }
                                
                         }
@@ -432,7 +446,7 @@ namespace ConsoleApp4
                             }
                             else
                             {
-                                _printEmps(emps);
+                                company.printEmps(emps);
                             }
                         }
                         else
@@ -485,7 +499,7 @@ namespace ConsoleApp4
             }
             if (emps.Count > 0)
             {
-                _printEmps(emps);
+                company.printEmps(emps);
             }
             else
             {
@@ -607,10 +621,12 @@ namespace ConsoleApp4
                 Console.WriteLine("14.Print Manager Team");
                 Console.WriteLine("15.Filter Employee");
                 Console.WriteLine("16.Searching By ID");
+                Console.WriteLine("17.Sort Employees By Salary (Decreasing Order)");
+                Console.WriteLine("18.Sort Employees By Name (Increasing Order)");
                 Console.WriteLine("0. Exit");
                 Console.WriteLine();
 
-                choice = _readChoice(16);
+                choice = _readChoice(18);
 
                 Console.WriteLine();
                 Console.WriteLine();
