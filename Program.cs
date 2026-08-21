@@ -32,7 +32,7 @@ namespace ConsoleApp4
             string s;
             do
             {
-                Console.WriteLine(message);
+                Console.Write(message);
                 s = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(s))
                 {
@@ -160,6 +160,11 @@ namespace ConsoleApp4
         static private void _employeePromotedHandler(object sender, EmployeeEventArgs e)
         {
             Console.WriteLine($"[Notification] Employee {e.Employee.name} with ID: {e.Employee.Id} has been promoted to manager ");
+        }
+
+        static private void _UniqueSkillAddedHandler(object sender, EmployeeEventArgs e)
+        {
+            Console.WriteLine($"[Notification] employee with ID: {e.Employee.Id} has unique skill ({e.Employee.uniqueSkill})");
         }
         static private void _mainMenuPerformance(enOption choice, Company company)
         {
@@ -614,16 +619,16 @@ namespace ConsoleApp4
                 Console.WriteLine("07. Calculate Salary Average");
                 Console.WriteLine("08. Employees Report By Department");
                 Console.WriteLine("09. Print Action History");
-                Console.WriteLine("10.Print Unique Skills");
-                Console.WriteLine("11.Promote To Manager");
-                Console.WriteLine("12.Print All Managers");
-                Console.WriteLine("13.Assign Employee To Manager");
-                Console.WriteLine("14.Print Manager Team");
-                Console.WriteLine("15.Filter Employee");
-                Console.WriteLine("16.Searching By ID");
-                Console.WriteLine("17.Sort Employees By Salary (Decreasing Order)");
-                Console.WriteLine("18.Sort Employees By Name (Increasing Order)");
-                Console.WriteLine("0. Exit");
+                Console.WriteLine("10. Print Unique Skills");
+                Console.WriteLine("11. Promote To Manager");
+                Console.WriteLine("12. Print All Managers");
+                Console.WriteLine("13. Assign Employee To Manager");
+                Console.WriteLine("14 .Print Manager Team");
+                Console.WriteLine("15. Filter Employee");
+                Console.WriteLine("16. Searching By ID");
+                Console.WriteLine("17. Sort Employees By Salary (Decreasing Order)");
+                Console.WriteLine("18. Sort Employees By Name (Increasing Order)");
+                Console.WriteLine("0.  Exit");
                 Console.WriteLine();
 
                 choice = _readChoice(18);
@@ -640,6 +645,7 @@ namespace ConsoleApp4
             Company company = new Company();
             company.EmployeeOnboarding += _employeeOnboardedHandler;
             company.EmployeePromoted += _employeePromotedHandler;
+            company.EmployeeSkillRegistered += _UniqueSkillAddedHandler;
             SeedData(company);
             mainMenu(company);
            
