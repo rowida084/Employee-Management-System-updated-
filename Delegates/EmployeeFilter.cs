@@ -1,4 +1,4 @@
-﻿using ConsoleApp4.Models;
+using ConsoleApp4.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp4
 {
-    internal delegate bool EmployeeFilter(Employee employee);
+    public delegate bool EmployeeFilter(Employee employee);
+    public delegate int EmployeeComparer(Employee emp1, Employee emp2);
 }
