@@ -1,4 +1,4 @@
-﻿using ConsoleApp4.Models;
+using ConsoleApp4.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +18,16 @@ namespace ConsoleApp4.Services
 
         public event EventHandler<EmployeeEventArgs> EmployeeOnboarding;
         public event EventHandler<EmployeeEventArgs> EmployeePromoted;
+
+         public void printEmps(List<Employee> employees)
+        {
+            foreach (Employee emp in employees)
+            {
+                Console.WriteLine("Employee Info:");
+                emp.Print();
+                Console.WriteLine("=====================================");
+            }
+        }
         public Results<Employee> employeeIsFound(int id )
         {
             foreach (Employee emp in activeEmployees)
@@ -594,7 +604,36 @@ namespace ConsoleApp4.Services
             return result;
         }
 
-        public Results<t> genericSearch<t>(int id,IEnumerable <t> collection) where t:IHasId 
+        public void bubbleSort(EmployeeComparer comparer)//decreasing order ... bonus
+        {
+            for (int j = 0; j < activeEmployees.Count; j++)
+            {
+                for (int i = 0; i < activeEmployees.Count-1-j; i++)
+                {
+                    if (comparer(activeEmployees[i], activeEmployees[i + 1]) > 0)
+                    {
+                        (activeEmployees[i], activeEmployees[i + 1]) = (activeEmployees[i + 1], activeEmployees[i]);
+                    }
+                }
+            }
+        }
+
+
+        public void printActiveEmployees()
+        {
+            if(activeEmployees ==null||activeEmployees.Count==0)
+            {
+                Console.WriteLine("No active employees found!");
+                Console.WriteLine();
+                return ;
+            }
+            foreach(Employee emp in activeEmployees)
+            {
+                emp.Print();
+                Console.WriteLine("=============================");
+            }
+        }
+        public Results<t> genericSearch<t>(int id,IEnumerable <t> collection) where t:IHasId //bonus
         {
             foreach(var result in collection)
             {
